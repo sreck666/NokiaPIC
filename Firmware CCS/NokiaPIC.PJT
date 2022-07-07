@@ -1,0 +1,41 @@
+[PROJECT]
+Target=NokiaPIC.HEX
+Development_Mode=2
+Processor=0x628A
+Processor_Text=PIC16F628A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\PIC\NokiaPIC\Firmware CCS\NokiaPIC.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[NokiaPIC.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=NokiaPIC.c
+
+[Windows]
+0=0000 NokiaPIC.c 0 0 796 451 3 0
+
+[Opened Files]
+1=NokiaPIC.c
+2=
+3=C:\Archivos de programa\PICC\devices\16F628A.h
+4=
+[Units]
+Count=1
+1=NokiaPIC (main)

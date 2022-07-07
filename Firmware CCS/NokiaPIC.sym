@@ -1,0 +1,85 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01F.6   C1OUT
+01F.7   C2OUT
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028-029 Segundos
+02A-02B Minutos
+02C.0   flag_Call
+02C.1   flag_trigger
+02D     DTMF_Dec.aux_dtmf
+02D-02E nk_sync.i
+02D     button_1.@SCRATCH1
+02D     button_2.@SCRATCH1
+02D     MAIN.@SCRATCH1
+02E     Alarm_ON.@SCRATCH1
+02E     Alarm_OFF.@SCRATCH1
+02E     Init_Main.@SCRATCH1
+02F     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+09B-09C @READ_PROGRAM_MEMORY8.P1
+
+ROM Allocation:
+00B6  @delay_ms1
+00DE  nk_version
+0124  nk_call
+0076  nk_reset
+019A  nk_break
+0063  nk_sync
+01F2  Alarm_ON
+0208  Alarm_OFF
+011F  button_1
+0195  button_2
+00AF  Init_Var
+00CA  Init_Main
+01E3  DTMF_Dec
+0031  timer1_isr
+021B  MAIN
+021B  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    F:\PIC\NokiaPIC\Firmware CCS\
+
+Project Files:
+    NokiaPIC.c
+    NokiaPIC.h
+    C:\Program Files\PICC\devices\16F628A.h
+
+Units:
+    F:\PIC\NokiaPIC\Firmware CCS\NokiaPIC (main)
+
+Compiler Settings:
+    Processor:      PIC16F628A
+    Pointer Size:   16
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      NokiaPIC.err
+    Ext Symbols: NokiaPIC.esym
+    INHX8:       NokiaPIC.hex
+    Symbols:     NokiaPIC.sym
+    List:        NokiaPIC.lst
+    Debug/COFF:  NokiaPIC.cof
+    Project:     NokiaPIC.PJT
+    Call Tree:   NokiaPIC.tre
+    Statistics:  NokiaPIC.sta

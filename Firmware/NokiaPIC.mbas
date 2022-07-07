@@ -1,0 +1,226 @@
+program NokiaPIC
+dim counter_disp as byte
+' Declarations section 
+
+
+sub procedure NK_Rst   'Cadena para resetear el celular
+    '1E-00-0C-40-00-06-00-01-64-03-01-60-77-24  " Resetea el Movil
+    UART1_Write(0x1E)
+    UART1_Write(0x00)
+    UART1_Write(0x0C)
+    UART1_Write(0x40)
+    UART1_Write(0x00)
+    UART1_Write(0x06)
+    UART1_Write(0x00)
+    UART1_Write(0x01)
+    UART1_Write(0x64)
+    UART1_Write(0x03)
+    UART1_Write(0x01)
+    UART1_Write(0x60)
+    UART1_Write(0x77)
+    UART1_Write(0x24)
+end sub
+
+sub procedure NK_Sync    'Cadena para sincronizar con Nokia FBUS
+dim i as byte
+    for i=1 to 128
+        UART1_Write(0x55)
+    next i
+end sub
+sub procedure NK_SMS     'Cadena para mandar los SMS
+'  1E-00-0C-02-00-
+   UART1_Write(0x1E)     '01
+   UART1_Write(0x00)     '02
+   UART1_Write(0x0C)     '03
+   UART1_Write(0x02)     '04
+   UART1_Write(0x00)     '05
+'  31-  " Longitud de la trama    
+   UART1_Write(0x3A)     '06
+'  00-01-00-01-02-00-
+   UART1_Write(0x00)     '07
+   UART1_Write(0x01)     '08
+   UART1_Write(0x00)     '09
+   UART1_Write(0x01)     '10
+   UART1_Write(0x02)     '11
+   UART1_Write(0x00)     '12
+'  07-  " longitud del numero  SMSC en octetos tipo incluido
+   UART1_Write(0x07)     '13
+'  91-  " numero SMSC tipo . ejemplo : 0x81-unknown 0x91-international 0xa1-national
+   UART1_Write(0x81)     '14
+'  45-02-00-00-00-F1-  --> " paquete con el numero SMSC  [ SMS = Centro de mensajes ]
+'                          " en este caso +543200000001
+    UART1_Write(0x45)    '15
+    UART1_Write(0x23)    '16
+    UART1_Write(0x00)    '17
+    UART1_Write(0x00)    '18
+    UART1_Write(0x00)    '19
+    UART1_Write(0x10)    '20
+'   00-00-00-00-11-00-00-00-
+    UART1_Write(0x00)    '21
+    UART1_Write(0x00)    '22
+    UART1_Write(0x00)    '23
+    UART1_Write(0x00)    '24
+    UART1_Write(0x11)    '25
+    UART1_Write(0x00)    '26
+    UART1_Write(0x00)    '27
+    UART1_Write(0x00)    '28
+'   05- " Longitud del mensaje  en  7 bit chars
+    UART1_Write(0x05)    '29
+'   09- " Longitud del nº destino en  semi-octetos
+    UART1_Write(0x0C)    '30
+'   81- " tipo  ej. 81-unknown 91-international a1-national
+    UART1_Write(0x81)    '31
+'   21 43 65 87 F9" Paquete con el Nº tefefono +541137556470
+'                   si sobra algun nieble como en este caso se pone a $F
+    UART1_Write(0x45)    '32
+    UART1_Write(0x11)    '33
+    UART1_Write(0x73)    '34
+    UART1_Write(0x55)    '35
+    UART1_Write(0x46)    '36
+    UART1_Write(0x07)    '37
+'00-00-00-00-00-A7-00-00-00-00-00-00-
+    UART1_Write(0x00)    '38
+    UART1_Write(0x00)    '39
+    UART1_Write(0x00)    '40
+    UART1_Write(0x00)    '41
+    UART1_Write(0x00)    '42
+    UART1_Write(0xA7)    '43
+    UART1_Write(0x00)    '44
+    UART1_Write(0x00)    '45
+    UART1_Write(0x00)    '46
+    UART1_Write(0x00)    '47
+    UART1_Write(0x00)    '48
+    UART1_Write(0x00)    '49
+'E8-32-9B-FD-06  " paquete con el texto en formato 7 bit chars
+    UART1_Write(0xE8)    '50
+    UART1_Write(0x32)    '51
+    UART1_Write(0x9B)    '52
+    UART1_Write(0xFD)    '53
+    UART1_Write(0x06)    '54
+'01-60-
+    UART1_Write(0x01)    '55
+    UART1_Write(0x60)    '56
+'*00-  " si la longitud total de la trama es inpar se le añade este byte para que quede par
+'    UART1_Write(0x00)    '57
+'FE-  " XOR sobre los números impares de la trama
+    UART1_Write(0x46)    '57
+'FA   " XOR sobre los números pares     "
+    UART1_Write(0x07)    '58
+
+
+
+
+
+end sub
+sub procedure NK_Call    'Cadena para llamar a Nro de memoria 2
+    ' 1E 00 10 01 00 11 00 01 00 01 01 00 32 05 01 05 00 02 00 00 01 01 45 00 78 13
+    UART1_Write(0x1E)
+    UART1_Write(0x00)
+    UART1_Write(0x10)
+    UART1_Write(0x01)
+    UART1_Write(0x00)
+    UART1_Write(0x11)
+    UART1_Write(0x00)
+    UART1_Write(0x01)
+    UART1_Write(0x00)
+    UART1_Write(0x01)
+    UART1_Write(0x01)
+    UART1_Write(0x00)
+    UART1_Write(0x32)
+    UART1_Write(0x05)
+    UART1_Write(0x01)
+    UART1_Write(0x05)
+    UART1_Write(0x00)
+    UART1_Write(0x02)
+    UART1_Write(0x00)
+    UART1_Write(0x00)
+    UART1_Write(0x01)
+    UART1_Write(0x01)
+    UART1_Write(0x45)
+    UART1_Write(0x00)
+    UART1_Write(0x78)
+    UART1_Write(0x13)
+end sub
+sub procedure Alarm_Disp 'Accion de Disparo de alarma por RB0
+    NK_Sync
+    delay_ms(100)
+    NK_Rst
+    delay_ms(100)
+    NK_Call
+
+end sub
+
+sub procedure interrupt
+  if TestBit(INTCON, INTF) = 1 then  'se dispara la alarma
+     clearbit(PORTA,1)
+     delay_ms(3000)
+     if testbit(PORTB,0) = 1 then
+        delay_ms(3000)
+        if testbit(PORTB,0) = 1 then
+           setbit(PORTA , 0)
+           delay_ms(6000)
+           clearbit(PORTA, 0)
+           ' llamar a rutina de aviso de activacion
+           Alarm_Disp
+        end if
+     end if
+     
+  end if
+  'if TestBit(INTCON, RBIF) = 1 then
+  '   setbit(PORTA, 0)
+  '   delay_ms(10000)
+  '   clearbit(PORTA, 0)
+  'end if
+ INTCON = 0x98
+ end sub
+
+
+main:
+'   Main program
+'        --------------------- PORT A
+'        RA0 = 1 NC / No Conectado
+'        RA1 = 1 NC
+'        RA2 = 1 Switch S1
+'        RA3 = 1 Switch S2
+'        RA4 = 0 Salida a OptoTR para llave
+'        RA5
+'        RA6
+'        RA7
+'        -------------------  PORT B
+'        RB0 = 1 Entrada OptoTR para Sirena
+'        RB1 = 1 Entrada de Fbus
+'        RB2 = 0 Salida de Fbus
+'        RB3 = 1 Entrada de LED de Activo
+'        RB4 = 0
+'        RB5 = 0
+'        RB6 = 0 Salida a Led 1
+'        RB7 = 0 Salida a Led 2
+
+    TRISA = 0x0F   '0000 1111 PA como salida
+    TRISB = 0x0F   '0000 1111 PB como entrada
+   
+    PORTA = 0x00
+    
+    'INTCON = 0x98
+    UART1_Init(115200)
+    delay_ms(100)
+    
+main_loop:
+
+          if testbit(PORTA, 2) = 1 then
+             PORTB.6 = 1
+             delay_ms(1000)
+             PORTB.6 = 0
+          end if
+          if testbit(PORTA, 3) = 1 then
+             setbit(PORTB,7)
+             delay_ms(1000)
+             clearbit(PORTB,7)
+          end if
+
+          
+          nop
+          nop
+          goto main_loop
+          
+end.

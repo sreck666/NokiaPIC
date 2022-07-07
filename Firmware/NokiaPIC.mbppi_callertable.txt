@@ -1,0 +1,10 @@
+main
+	UART1_Init
+interrupt
+	Alarm_Disp
+		NK_Sync
+			UART1_Write
+		NK_Rst
+			UART1_Write
+		NK_Call
+			UART1_Write
